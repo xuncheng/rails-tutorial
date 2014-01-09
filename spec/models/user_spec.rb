@@ -8,4 +8,14 @@ describe User do
   it { should allow_value('asf@jkl').for(:email) }
   it { should_not allow_value('asdfjkl').for(:email) }
   it { should ensure_length_of(:password).is_at_least(6) }
+
+  it "generates a random slug when the user is created" do
+    alice = FactoryGirl.create(:user)
+    expect(alice.slug).to be_present
+  end
+
+  it "changes email address to lowercase characters" do
+    alice = FactoryGirl.create(:user, email: "aLice@Example.com")
+    expect(alice.email).to eq("alice@example.com")
+  end
 end
