@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   before_create :generate_slug
   before_save { self.email = email.downcase }
+  before_save :generate_remember_token
 
   def to_param
     slug
@@ -18,5 +19,9 @@ class User < ActiveRecord::Base
       token = SecureRandom.urlsafe_base64(4)
       break self.slug = token unless User.exists?(:slug => token)
     end
+  end
+
+  def generate_remember_token
+    self.remember_token = SecureRandom.urlsafe_base64
   end
 end

@@ -12,7 +12,7 @@ describe SessionsController do
 
       it "stores the user in the session" do
         post :create, session: { email: alice.email, password: alice.password }
-        expect(session[:user_id]).to eq(alice.id)
+        expect(cookies[:remember_token]).to eq(alice.remember_token)
       end
     end
 
@@ -29,7 +29,7 @@ describe SessionsController do
 
       it "does not store the user in the session" do
         post :create, session: { email: alice.email, password: alice.password + "abc" }
-        expect(session[:id]).to be_nil
+        expect(cookies[:remember_token]).to be_nil
       end
     end
   end

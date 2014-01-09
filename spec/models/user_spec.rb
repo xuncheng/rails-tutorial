@@ -18,4 +18,9 @@ describe User do
     alice = FactoryGirl.create(:user, email: "aLice@Example.com")
     expect(alice.email).to eq("alice@example.com")
   end
+
+  it "generates a random remember_token when the user is saved" do
+    alice = FactoryGirl.create(:user)
+    expect(alice.remember_token).to be_present
+  end
 end

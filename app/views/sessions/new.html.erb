@@ -10,7 +10,11 @@
       <%= f.label :password %>
       <%= f.password_field :password %>
 
-      <%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+      <div class="form-inline">
+        <%= f.submit "Sign in", class: "btn btn-primary" %>
+        <%= f.check_box :remember_me, checked: true, class: "remember" %>
+        <%= f.label :remember_me %>
+      </div>
     <% end %>
 
     <p>New user? <%= link_to "Sign up now!", sign_up_path %></p>
