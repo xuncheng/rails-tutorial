@@ -11,16 +11,16 @@ describe UsersController do
   describe "GET show" do
     it "assigns the requested user to @user" do
       alice = FactoryGirl.create(:user)
-      get :show, id: alice.id
+      get :show, id: alice.slug
       expect(assigns(:user)).to eq(alice)
     end
   end
 
   describe "POST create" do
     context "with valid attributes" do
-      it "redirects to the homepage" do
+      it "redirects to the users#show page" do
         post :create, user: FactoryGirl.attributes_for(:user)
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to user_path(assigns[:user])
       end
 
       it "saves the new user in the database" do
