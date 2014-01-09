@@ -1,3 +1,7 @@
+def set_current_user(user=nil)
+  cookies[:remember_token] = (user || FactoryGirl.create(:user)).remember_token
+end
+
 def sign_up_with(name, email, password)
   visit sign_up_path
   fill_in "Name", with: name

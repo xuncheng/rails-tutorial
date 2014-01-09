@@ -29,6 +29,11 @@ describe UsersController do
         }.to change(User, :count).by(1)
       end
 
+      it "stores the user in the cookies" do
+        post :create, user: FactoryGirl.attributes_for(:user)
+        expect(cookies[:remember_token]).to eq(assigns(:user).remember_token)
+      end
+
       it "shows the flash success messages" do
         post :create, user: FactoryGirl.attributes_for(:user)
         expect(flash[:success]).to be_present

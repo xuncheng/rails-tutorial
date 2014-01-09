@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      cookies[:remember_token] = @user.remember_token
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user
     else

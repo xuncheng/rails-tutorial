@@ -8,5 +8,6 @@ RailsTutorial::Application.routes.draw do
   resources :users, only: [:show, :create]
 
   get 'sign_in', to: 'sessions#new'
+  delete 'sign_out', to: 'sessions#destroy'
   resources :sessions, only: [:create]
 end

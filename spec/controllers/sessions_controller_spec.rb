@@ -10,9 +10,14 @@ describe SessionsController do
         expect(response).to redirect_to user_path(alice)
       end
 
-      it "stores the user in the session" do
+      it "stores the user in the cookies" do
         post :create, session: { email: alice.email, password: alice.password }
         expect(cookies[:remember_token]).to eq(alice.remember_token)
+      end
+
+      it "assigns the flash with success message" do
+        post :create, session: { email: alice.email, password: alice.password }
+        expect(flash[:success]).to be_present
       end
     end
 
@@ -27,10 +32,29 @@ describe SessionsController do
         expect(flash[:error]).to be_present
       end
 
-      it "does not store the user in the session" do
+      it "does not store the user in the cookies" do
         post :create, session: { email: alice.email, password: alice.password + "abc" }
         expect(cookies[:remember_token]).to be_nil
       end
+    end
+  end
+
+  describe "DELETE destroy" do
+    before { set_current_user }
+
+    it "redirects to the homepage" do
+      delete :destroy
+      expect(response).to redirect_to root_url
+    end
+
+    it "clears the user in the cookies" do
+      delete :destroy
+      expect(cookies[:remember_token]).to be_nil
+    end
+
+    it "assigns the flash with success message" do
+      delete :destroy
+      expect(flash[:success]).to be_present
     end
   end
 end
