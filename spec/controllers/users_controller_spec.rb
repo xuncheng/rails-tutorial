@@ -8,6 +8,14 @@ describe UsersController do
     end
   end
 
+  describe "GET show" do
+    it "assigns the requested user to @user" do
+      alice = FactoryGirl.create(:user)
+      get :show, id: alice.id
+      expect(assigns(:user)).to eq(alice)
+    end
+  end
+
   describe "POST create" do
     context "with valid attributes" do
       it "redirects to the homepage" do
