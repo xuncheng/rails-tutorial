@@ -6,7 +6,7 @@ describe UsersController do
       let(:action) { get :index }
     end
 
-    it "populates an array of contacts starting with the letter" do
+    it "populates an array of users" do
       user1 = FactoryGirl.create(:user)
       user2 = FactoryGirl.create(:user)
       set_current_user(user1)
@@ -23,10 +23,18 @@ describe UsersController do
   end
 
   describe "GET show" do
+    let(:alice) { FactoryGirl.create(:user) }
+
     it "assigns the requested user to @user" do
-      alice = FactoryGirl.create(:user)
       get :show, id: alice.slug
       expect(assigns(:user)).to eq(alice)
+    end
+
+    it "assigns the microposts to @microposts that associated with the user" do
+      micropost1 = FactoryGirl.create(:micropost, user: alice)
+      micropost2 = FactoryGirl.create(:micropost, user: alice)
+      get :show, id: alice.slug
+      expect(assigns(:microposts)).to match_array([micropost1, micropost2])
     end
   end
 

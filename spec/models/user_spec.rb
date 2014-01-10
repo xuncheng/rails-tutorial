@@ -8,6 +8,7 @@ describe User do
   it { should allow_value('asf@jkl').for(:email) }
   it { should_not allow_value('asdfjkl').for(:email) }
   it { should ensure_length_of(:password).is_at_least(6) }
+  it { should have_many(:microposts).order('created_at DESC').dependent(:destroy) }
 
   it "generates a random slug when the user is created" do
     alice = FactoryGirl.create(:user)

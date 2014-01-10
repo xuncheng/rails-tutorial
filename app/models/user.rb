@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   before_save { self.email = email.downcase }
   before_save :generate_remember_token
 
+  has_many :microposts, -> { order "created_at DESC" }, dependent: :destroy
+
   def to_param
     slug
   end
