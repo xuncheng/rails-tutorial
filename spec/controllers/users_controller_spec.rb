@@ -136,4 +136,41 @@ describe UsersController do
       end
     end
   end
+
+  describe "DELETE destroy" do
+    let(:admin) { FactoryGirl.create(:admin) }
+
+    before { set_current_user(admin) }
+
+    it_behaves_like "requires sign in" do
+      let(:action) { delete :destroy, id: FactoryGirl.create(:user).slug }
+    end
+
+    it_behaves_like "requires admin" do
+      let(:action) { delete :destroy, id: FactoryGirl.create(:user).slug }
+    end
+
+    it "redirects to the all users page" do
+      delete :destroy, id: FactoryGirl.create(:user).slug
+      expect(response).to redirect_to users_url
+    end
+
+    it "deletes the user from the database" do
+      user = FactoryGirl.create(:user)
+      expect{
+        delete :destroy, id: user.slug
+      }.to change(User, :count).by(-1)
+    end
+
+    it "shows the flash success messages" do
+      delete :destroy, id: FactoryGirl.create(:user).slug
+      expect(flash[:success]).to be_present
+    end
+
+    it "does not delete the user if the user is itself" do
+      expect{
+        delete :destroy, id: admin.slug
+      }.not_to change(User, :count)
+    end
+  end
 end

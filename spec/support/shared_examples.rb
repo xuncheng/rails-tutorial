@@ -12,3 +12,11 @@ shared_examples "requires correct user" do
     expect(response).to redirect_to root_url
   end
 end
+
+shared_examples "requires admin" do
+  it "redirects to the root page" do
+    set_current_user
+    action
+    expect(response).to redirect_to root_url
+  end
+end
