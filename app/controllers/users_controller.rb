@@ -11,8 +11,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       cookies[:remember_token] = @user.remember_token
-      flash[:success] = t("registrations.signed_up")
-      redirect_to @user
+      redirect_to @user, success: t("registrations.signed_up")
     else
       render :new
     end
@@ -20,8 +19,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      flash[:success] = t("registrations.updated")
-      redirect_to @user
+      redirect_to @user, success: t("registrations.updated")
     else
       render :edit
     end
