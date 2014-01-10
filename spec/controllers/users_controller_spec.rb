@@ -1,6 +1,20 @@
 require 'spec_helper'
 
 describe UsersController do
+  describe "GET index" do
+    it_behaves_like "requires sign in" do
+      let(:action) { get :index }
+    end
+
+    it "populates an array of contacts starting with the letter" do
+      user1 = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user)
+      set_current_user(user1)
+      get :index
+      expect(assigns(:users)).to match_array([user1, user2])
+    end
+  end
+
   describe "GET new" do
     it "assigns a new User to @user" do
       get :new

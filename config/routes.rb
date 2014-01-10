@@ -10,5 +10,5 @@ RailsTutorial::Application.routes.draw do
   get 'sign_in', to: 'sessions#new'
   delete 'sign_out', to: 'sessions#destroy'
   resources :sessions, only: [:create]
-  resources :users, only: [:edit, :update]
+  resources :users, only: [:index, :edit, :update]
 end

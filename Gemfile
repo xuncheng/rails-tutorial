@@ -10,6 +10,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'bcrypt-ruby', '~> 3.1.2'
+gem 'will_paginate', '~> 3.0.5'
+gem 'bootstrap-will_paginate', '~> 0.0.10'
 
 group :development do
   gem 'pry'
@@ -25,11 +27,11 @@ group :development, :test do
   gem 'sqlite3', '~> 1.3.8'
   gem 'rspec-rails', '~> 2.14.1'
   gem 'factory_girl_rails', '~> 4.3.0'
+  gem 'faker', '~> 1.1.2'
 end
 
 group :test do
   gem 'shoulda-matchers', '~> 2.4.0'
-  gem 'faker', '~> 1.1.2'
   gem 'capybara', '~> 2.2.1'
   gem 'database_cleaner', '~> 1.2.0'
 end
