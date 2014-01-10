@@ -7,17 +7,17 @@ class SessionsController < ApplicationController
       else
         cookies[:remember_token] = user.remember_token
       end
-      flash[:success] = "Sign in successed."
+      flash[:success] = t("sessions.signed_in")
       redirect_to user
     else
-      flash.now[:error] = "Invalid email and password combination."
+      flash.now[:error] = t("failure.invalid")
       render :new
     end
   end
 
   def destroy
     cookies[:remember_token] = nil
-    flash[:success] = "Sign out successed."
+    flash[:success] = t("sessions.signed_out")
     redirect_to root_url
   end
 end

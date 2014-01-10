@@ -17,9 +17,20 @@ describe UsersController do
   end
 
   describe "GET edit" do
+    let(:alice) { FactoryGirl.create(:user, email: "right@example.com") }
+    let(:another_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
+
+    before { set_current_user(alice) }
+
+    it_behaves_like "requires sign in" do
+      let(:action) { get :edit, id: alice.slug }
+    end
+
+    it_behaves_like "requires correct user" do
+      let(:action) { get :edit, id: another_user.slug }
+    end
+
     it "assigns the requested user to @user" do
-      alice = FactoryGirl.create(:user)
-      set_current_user(alice)
       get :edit, id: alice.slug
       expect(assigns(:user)).to eq(alice)
     end
@@ -65,6 +76,17 @@ describe UsersController do
 
   describe "PUT update" do
     let(:alice) { FactoryGirl.create(:user, name: "John Smith") }
+    let(:another_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
+
+    before { set_current_user(alice) }
+
+    it_behaves_like "requires sign in" do
+      let(:action) { put :update, id: alice.slug, user: FactoryGirl.attributes_for(:user) }
+    end
+
+    it_behaves_like "requires correct user" do
+      let(:action) { get :edit, id: another_user.slug }
+    end
 
     context "with valid attributes" do
       it "redirects to the updated user page" do
@@ -90,7 +112,7 @@ describe UsersController do
 
     context "with invalid attributes" do
       it "re-renders the :edit template" do
-        put :update, id: alice.slug, user: FactoryGirl.attributes_for(:user, name: nil)
+        put :update, id: alice.slug, user: { name: nil }
         expect(response).to render_template :edit
       end
 

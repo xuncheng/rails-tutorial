@@ -1,21 +1,17 @@
 class UsersController < ApplicationController
+  before_action :find_user, only: [:show]
+  before_action :require_user, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update]
+
   def new
     @user = User.new
-  end
-
-  def show
-    @user = User.find_by_slug(params[:id])
-  end
-
-  def edit
-    @user = User.find_by_slug(params[:id])
   end
 
   def create
     @user = User.new(user_params)
     if @user.save
       cookies[:remember_token] = @user.remember_token
-      flash[:success] = "Welcome to the Sample App!"
+      flash[:success] = t("registrations.signed_up")
       redirect_to @user
     else
       render :new
@@ -23,9 +19,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find_by_slug(params[:id])
     if @user.update_attributes(user_params)
-      flash[:success] = "Profile update successed."
+      flash[:success] = t("registrations.updated")
       redirect_to @user
     else
       render :edit
@@ -35,5 +30,13 @@ class UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def find_user
+    @user = User.find_by_slug(params[:id])
+  end
+
+  def correct_user
+    redirect_to root_url unless current_user == find_user
   end
 end

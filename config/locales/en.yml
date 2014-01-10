@@ -1,5 +1,4 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
+# Files in the config/locales directory are used for internationalization # and are automatically loaded by Rails. If you want to use locales other
 # than English, add the necessary files in this directory.
 #
 # To use the locales, use `I18n.t`:
@@ -20,4 +19,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  failure:
+    invalid: "Invalid email or password."
+    unauthenticated: "You need to sign in or sign up before continuing."
+  registrations:
+    signed_up: "Welcome! You have signed up successfully."
+    updated: "You updated your account successfully."
+  sessions:
+    signed_in: "Signed in successfully."
+    signed_out: "Signed out successfully."
