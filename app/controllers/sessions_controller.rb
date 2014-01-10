@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       else
         cookies[:remember_token] = user.remember_token
       end
-      redirect_to user, success: t("sessions.signed_in")
+      redirect_back_or user
     else
       flash.now[:error] = t("failure.invalid")
       render :new
@@ -16,7 +16,6 @@ class SessionsController < ApplicationController
 
   def destroy
     cookies[:remember_token] = nil
-    # flash[:success] = t("sessions.signed_out")
     redirect_to root_url, success: t("sessions.signed_out")
   end
 end
