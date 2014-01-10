@@ -16,6 +16,15 @@ describe UsersController do
     end
   end
 
+  describe "GET edit" do
+    it "assigns the requested user to @user" do
+      alice = FactoryGirl.create(:user)
+      set_current_user(alice)
+      get :edit, id: alice.slug
+      expect(assigns(:user)).to eq(alice)
+    end
+  end
+
   describe "POST create" do
     context "with valid attributes" do
       it "redirects to the users#show page" do
@@ -50,6 +59,44 @@ describe UsersController do
         expect{
           post :create, user: FactoryGirl.attributes_for(:user, email: nil)
         }.not_to change(User, :count)
+      end
+    end
+  end
+
+  describe "PUT update" do
+    let(:alice) { FactoryGirl.create(:user, name: "John Smith") }
+
+    context "with valid attributes" do
+      it "redirects to the updated user page" do
+        put :update, id: alice.slug, user: FactoryGirl.attributes_for(:user)
+        expect(response).to redirect_to user_path(alice)
+      end
+
+      it "located the requested user to @user" do
+        put :update, id: alice.slug, user: FactoryGirl.attributes_for(:user)
+        expect(assigns(:user)).to eq(alice)
+      end
+
+      it "changes the user's attributes" do
+        put :update, id: alice.slug, user: FactoryGirl.attributes_for(:user, name: "Rails Tutorial")
+        expect(alice.reload.name).to eq("Rails Tutorial")
+      end
+
+      it "assigns the flash with success message" do
+        put :update, id: alice.slug, user: FactoryGirl.attributes_for(:user)
+        expect(flash[:success]).to be_present
+      end
+    end
+
+    context "with invalid attributes" do
+      it "re-renders the :edit template" do
+        put :update, id: alice.slug, user: FactoryGirl.attributes_for(:user, name: nil)
+        expect(response).to render_template :edit
+      end
+
+      it "does not change the user's attributes" do
+        put :update, id: alice.slug, user: FactoryGirl.attributes_for(:user, name: nil)
+        expect(alice.reload.name).to eq("John Smith")
       end
     end
   end
