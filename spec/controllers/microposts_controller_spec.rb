@@ -45,4 +45,38 @@ describe MicropostsController do
       end
     end
   end
+
+  describe "DELETE destroy" do
+    let(:alice) { FactoryGirl.create(:user) }
+
+    before { set_current_user(alice) }
+
+    it_behaves_like "requires sign in" do
+      let(:action) { delete :destroy, id: 4 }
+    end
+
+    it_behaves_like "requires correct user" do
+      another_user = FactoryGirl.create(:user)
+      micropost = FactoryGirl.create(:micropost, user: another_user)
+      let(:action) { delete :destroy, id: micropost.id }
+    end
+
+    it "redirects to the home page" do
+      delete :destroy, id: 4
+      expect(response).to redirect_to root_url
+    end
+
+    it "deletes the micropost from the database" do
+      micropost = FactoryGirl.create(:micropost, user: alice)
+      expect{
+        delete :destroy, id: micropost.id
+      }.to change(alice.microposts, :count).by(-1)
+    end
+
+    it "shows the flash success messages" do
+      micropost = FactoryGirl.create(:micropost, user: alice)
+      delete :destroy, id: micropost.id
+      expect(flash[:success]).to be_present
+    end
+  end
 end

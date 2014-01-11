@@ -11,5 +11,5 @@ RailsTutorial::Application.routes.draw do
   delete 'sign_out', to: 'sessions#destroy'
   resources :sessions, only: [:create]
   resources :users, only: [:index, :edit, :update, :destroy]
-  resources :microposts, only: [:create]
+  resources :microposts, only: [:create, :destroy]
 end
