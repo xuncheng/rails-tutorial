@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       else
         cookies[:remember_token] = user.remember_token
       end
-      redirect_back_or user
+      redirect_back_or root_url
     else
       flash.now[:error] = t("failure.invalid")
       render :new

@@ -5,10 +5,10 @@ describe SessionsController do
     let(:alice) { FactoryGirl.create(:user) }
 
     context "with valid email and password" do
-      it "redirects to the signed up user page if non-exisiting return_to in the session" do
+      it "redirects to the home page if non-exisiting return_to in the session" do
         session[:return_to] = nil
         post :create, session: { email: alice.email, password: alice.password }
-        expect(response).to redirect_to user_path(alice)
+        expect(response).to redirect_to root_url
       end
 
       it "redirects to the last visited page if exisiting return_to in the session" do

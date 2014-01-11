@@ -48,6 +48,7 @@ describe MicropostsController do
 
   describe "DELETE destroy" do
     let(:alice) { FactoryGirl.create(:user) }
+    let(:another_user) { FactoryGirl.create(:user) }
 
     before { set_current_user(alice) }
 
@@ -56,9 +57,7 @@ describe MicropostsController do
     end
 
     it_behaves_like "requires correct user" do
-      another_user = FactoryGirl.create(:user)
-      micropost = FactoryGirl.create(:micropost, user: another_user)
-      let(:action) { delete :destroy, id: micropost.id }
+      let(:action) { delete :destroy, id: FactoryGirl.create(:micropost, user: another_user).id }
     end
 
     it "redirects to the home page" do
