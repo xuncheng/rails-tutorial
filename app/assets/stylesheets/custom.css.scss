@@ -125,21 +125,42 @@ aside {
   section {
     padding: 10px 0;
     border-top: 1px solid $grayLighter;
+    line-height: 16px;
     &:first-child {
       border: 0;
       padding-top: 0;
     }
-    span {
-      display: block;
-      margin-bottom: 3px;
-      line-height: 1;
-    }
-    h1 {
-      font-size: 1.4em;
-      text-align: left;
-      letter-spacing: -1px;
-      margin-bottom: 3px;
-      margin-top: 0px;
+    // span {
+    //   display: block;
+    //   margin-bottom: 3px;
+    //   line-height: 1;
+    // }
+    // h1 {
+    //   font-size: 1.4em;
+    //   text-align: left;
+    //   letter-spacing: -1px;
+    //   margin-bottom: 3px;
+    //   margin-top: 0px;
+    // }
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+      .name {
+        font-size: 14px;
+        color: #333;
+        &:hover {
+          text-decoration: underline;
+          color: $blue;
+        }
+      }
+      .metadata {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 11px;
+        color: #999;
+      }
     }
   }
 }
@@ -150,7 +171,7 @@ aside {
 }
 
 .stats {
-  overflow: auto;
+  overflow: none;
   a {
     float: left;
     padding: 0 10px;
@@ -159,6 +180,10 @@ aside {
     color: #999;
     font-size: 12px;
     text-transform: uppercase;
+    strong {
+      color: #333;
+      font-size: 14px;
+    }
     &:first-child {
       padding-left: 0;
       border: 0;

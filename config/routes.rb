@@ -5,11 +5,12 @@ RailsTutorial::Application.routes.draw do
   get 'contact', to: 'static_pages#contact'
 
   get 'sign_up', to: 'users#new'
-  resources :users, only: [:show, :create]
-
   get 'sign_in', to: 'sessions#new'
   delete 'sign_out', to: 'sessions#destroy'
+  resources :users do
+    get 'following', on: :member
+    get 'followers', on: :member
+  end
   resources :sessions, only: [:create]
-  resources :users, only: [:index, :edit, :update, :destroy]
   resources :microposts, only: [:create, :destroy]
 end
