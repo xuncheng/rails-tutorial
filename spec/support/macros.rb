@@ -3,7 +3,7 @@ def set_current_user(user=nil)
 end
 
 def sign_up_with(name, email, password)
-  visit sign_up_path
+  visit signup_path
   fill_in "Name", with: name
   fill_in "Email", with: email
   fill_in "Password", with: password

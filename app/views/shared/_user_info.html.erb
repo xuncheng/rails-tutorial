@@ -1,5 +1,6 @@
-<a href="<%= user_path(current_user) %>">
-  <%= gravatar_for current_user, size: 32 %>
-  <b class="name"><%= current_user.name %></b><br/>
+<% @user ||= current_user %>
+<a href="<%= user_path(@user) %>">
+  <%= gravatar_for @user, size: 32 %>
+  <b class="name"><%= @user.name %></b><br/>
   <small class="metadata"> View my profile page </small>
 </a>

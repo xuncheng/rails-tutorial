@@ -2,7 +2,7 @@ module SessionsHelper
   def require_user
     unless current_user
       store_location
-      redirect_to sign_in_url, notice: t("failure.unauthenticated")
+      redirect_to login_url, notice: t("failure.unauthenticated")
     end
   end
 
