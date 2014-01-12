@@ -12,6 +12,7 @@ gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'will_paginate', '~> 3.0.5'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
+gem 'faker', '~> 1.2.0'
 
 group :development do
   gem 'pry'
@@ -27,7 +28,6 @@ group :development, :test do
   gem 'sqlite3', '~> 1.3.8'
   gem 'rspec-rails', '~> 2.14.1'
   gem 'factory_girl_rails', '~> 4.3.0'
-  gem 'faker', '~> 1.2.0'
 end
 
 group :test do
