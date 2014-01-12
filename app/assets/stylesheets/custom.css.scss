@@ -64,6 +64,28 @@ p {
   line-height: 1.7em;
 }
 
+.btn-follow {
+  .unfollow-text {display: none;}
+  .following-text {display: block;}
+  min-width: 70px;
+  background-color: #019ad2;
+  background-image: linear-gradient(#33bcef,#019ad2);
+  background-image: -webkit-linear-gradient(#33bcef,#019ad2);
+  &:hover {
+    .following-text {display: none;}
+    .unfollow-text {display: block;}
+    background-color: #c43c35;
+    background-image: linear-gradient(#ee5f5b,#c43c35);
+    background-image: -webkit-linear-gradient(#ee5f5b,#c43c35);
+  }
+}
+
+.follow {
+  min-width: 60px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
 
 /* header */
 

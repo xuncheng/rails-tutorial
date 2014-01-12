@@ -1,0 +1,4 @@
+<%= link_to current_user.relationships.find_by(followed_id: @user), method: :delete, remote: true, class: "btn btn-primary btn-follow" do %>
+  <span class="following-text">Following</span>
+  <span class="unfollow-text">Unfollow</span>
+<% end %>
