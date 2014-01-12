@@ -20,8 +20,16 @@ class User < ActiveRecord::Base
     slug
   end
 
+  def following?(other_user)
+    followed_users.include?(other_user)
+  end
+
   def follow!(other_user)
     relationships.create!(followed_id: other_user.id)
+  end
+
+  def can_follow?(other_user)
+    !(followed_users.include?(other_user) || self == other_user)
   end
 
   private

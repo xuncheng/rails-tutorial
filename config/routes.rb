@@ -13,4 +13,5 @@ RailsTutorial::Application.routes.draw do
   end
   resources :sessions, only: [:create]
   resources :microposts, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
 end
