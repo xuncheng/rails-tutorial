@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   before_save { self.email = email.downcase }
   before_save :generate_remember_token
 
-  has_many :microposts, -> { order "created_at DESC" }, dependent: :destroy
+  has_many :microposts, dependent: :destroy
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
 
   def to_param
     slug
+  end
+
+  def feed
+    Micropost.from_users_followed_by(self)
   end
 
   def following?(other_user)

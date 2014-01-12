@@ -8,5 +8,5 @@ def sign_up_with(name, email, password)
   fill_in "Email", with: email
   fill_in "Password", with: password
   fill_in "Password Confirmation", with: password
-  click_button "Sign up"
+  click_button "Create my account"
 end
