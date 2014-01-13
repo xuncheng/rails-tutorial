@@ -7,7 +7,7 @@ module SessionsHelper
   end
 
   def current_user
-    User.find_by_remember_token(cookies[:remember_token]) if cookies[:remember_token]
+    User.find_by(remember_token: cookies[:remember_token]) if cookies[:remember_token]
   end
 
   def redirect_back_or(default)
